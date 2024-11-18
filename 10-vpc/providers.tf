@@ -5,7 +5,6 @@ terraform {
         version = "~>5.0"
     }   
 }
-
 # backend "s3" {
 #     bucket         = "myorg-terraform-states"
 #     key            = "myapp/production/tfstate"
@@ -16,4 +15,5 @@ terraform {
 
 provider "aws" {
     region = "us-east-1"
+
 }
