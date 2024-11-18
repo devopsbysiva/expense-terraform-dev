@@ -15,3 +15,4 @@ output "default_vpc_info" {
 output "routes_table_info" {
   value = module.aws_vpc.routes_table_info
 }
+
