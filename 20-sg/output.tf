@@ -1,4 +1,4 @@
 output "sg_info" {
-    value = module.aws_sg.id
+    value = module.mysql_sg.id
 }
 

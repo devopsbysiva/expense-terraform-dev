@@ -21,3 +21,4 @@ module "frontend_sg" {
     vpc_id = data.aws_ssm_parameter.vpc_id.value
     sg_name = "frontend"   
 }
+
