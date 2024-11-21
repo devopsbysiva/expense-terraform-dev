@@ -32,8 +32,26 @@ resource "aws_security_group_rule" "mysql_backend" {
   from_port         = 3306
   to_port           = 3306
   protocol          = "tcp"
-  source_security_group_id = [<backend_sg_id>]
-  security_group_id = "<mysql_sg_id>"
+  source_security_group_id = module.backend_sg.id
+  security_group_id = module.mysql_sg.id
+#   source_security_group_id = [data.aws_ssm_parameter.backend_sg_id.value]
+#   security_group_id = data.aws_ssm_parameter.mysql_sg_id.value
 }
 
+resource "aws_security_group_rule" "backend_frontend" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  source_security_group_id = module.frontend_sg.id
+  security_group_id = module.backend_sg.id
+
+
+resource "aws_security_group_rule" "frontend_public" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.frontend_sg.id
 
