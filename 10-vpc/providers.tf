@@ -7,7 +7,7 @@ terraform {
 }
 # backend "s3" {
 #     bucket         = "myorg-terraform-states"
-#     key            = "myapp/production/tfstate"
+#     key            = "expense_dev_vpc"
 #     region         = "us-east-1"
 #     dynamodb_table = "TableName"
 #   }
