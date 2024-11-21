@@ -8,5 +8,5 @@ variable "environment" {
 
 variable "sg_name" {
     default = "mysql"
-    
+
 }

@@ -22,6 +22,15 @@ module "frontend_sg" {
     sg_name = "frontend"   
 }
 
+module "bastion_sg" {
+    source = "../../terraform-aws-security-group"
+    project_name = var.project_name
+    environment = var.environment
+    vpc_id = local.vpc_id
+    sg_name = "bastion"   
+}
+
+
 #  to allow connection between mysql to backend.
 #  the port 3306 to be enabled . port 8080 for backend. and port 80 for frontend. 
 #  to accept connections.
