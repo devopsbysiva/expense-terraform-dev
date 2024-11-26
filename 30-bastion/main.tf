@@ -1,5 +1,5 @@
 module "bastion" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+  source  = "terraform-aws-modules/ec2-instance/aws"  #open source module for instance creation.
 
   name = local.resource_name
   ami = data.aws_ami.joindevops.id
