@@ -30,6 +30,14 @@ module "bastion_sg" {
     sg_name = "bastion"   
 }
 
+module "ansible_sg" {
+    source = "../../terraform-aws-security-group"
+    project_name = var.project_name
+    environment = var.environment
+    vpc_id = local.vpc_id
+    sg_name = "ansible"   
+}
+
 
 #  to allow connection between mysql to backend.
 #  the port 3306 to be enabled . port 8080 for backend. and port 80 for frontend. 
@@ -100,4 +108,42 @@ resource "aws_security_group_rule" "bastion_public" {
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = module.bastion_sg.id
+}
+
+# ansible 
+
+resource "aws_security_group_rule" "mysql_ansible" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = module.ansible_sg.id
+  security_group_id = module.mysql_sg.id
+}
+
+resource "aws_security_group_rule" "backend_ansible" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = module.ansible_sg.id
+  security_group_id = module.backend_sg.id
+}
+
+resource "aws_security_group_rule" "frontend_ansible" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = module.ansible_sg.id
+  security_group_id = module.frontend_sg.id
+}
+
+resource "aws_security_group_rule" "ansible_public" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.ansible_sg.id
 }
