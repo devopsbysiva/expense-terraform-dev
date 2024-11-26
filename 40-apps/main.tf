@@ -46,3 +46,18 @@ module "frontend" {
   )
 }
 
+module "ansible" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+
+  name = "${local.resource_name}-ansible"
+
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [local.ansible_sg_id]  # ansible sg id.
+  subnet_id              = local.public_subnet_id  # public subnet id.
+
+  tags = merge( var.common_tags,var.ansible_tags,
+   {
+    Name = "${local.resource_name}-ansible"
+  }
+  )
+}
