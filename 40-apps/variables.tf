@@ -2,9 +2,14 @@ variable "project_name" {
     default = "expense"
 }
 
+variable "envirnoment" {
+    default = "dev"
+}
+
 variable "environment" {
     default = "dev"
 }
+
 
 variable "common_tags" {
     default = {
@@ -29,5 +34,11 @@ variable "backend_tags" {
 variable "frontend_tags" {
     default = {
         component = "frontend"
+    }
+}
+
+variable "ansible_tags" {
+    default = {
+        component = "ansible"
     }
 }
